@@ -1,0 +1,20 @@
+.profile-popup__main-wrapper {
+	right: -150px;
+	top: 70%;
+}
+.profile-popup-wrapper {
+	opacity: 0;
+	transition: all 0.2s ease-in 0.1s;
+}
+.profile-popup-wrapper .nav-link {
+	padding: 0.25rem;
+	font-weight: 700;
+	margin-left: 1rem;
+}
+
+@media screen and (min-width: 992px) {
+	.profile-popup__main-wrapper {
+		right: 0;
+		top: 110%;
+	}
+}

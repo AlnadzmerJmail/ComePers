@@ -1,0 +1,17 @@
+express - used to create server
+        - npm i express
+mongoose - used to connect server and db
+         - npm i mongoose
+session - used for user session
+        - npm i express-session
+bcrypt  - used for hashing password
+        npm i bcrypt
+passport - used fot authentication
+         - npm i passport passport-local pasport-local-mongoose
+methodOverride - used for overriding delete and put request in html form
+               - npm i method-methodOverride
+flash - used for notification flash such as success, error, and etc.
+ejsMate - used to create EJS boiler plate that could be used all around the views
+        - npm i ejs-mate 
+
+        

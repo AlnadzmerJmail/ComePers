@@ -1,0 +1,104 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="p-3">
+	<div class="row">
+		<div class="col-12 col-md-5 offset-md-3 p-4 p-md-5 rounded-2 shadow-lg">
+			<h1 class="text-center fs-3 pb-4">Edit Campground</h1>
+			<form
+				action="/campgrounds/<%= campground._id %>?_method=put"
+				method="post"
+				enctype="multipart/form-data"
+			>
+				<div class="mb-3">
+					<label class="form-label" for="title"> Title </label>
+					<input
+						class="form-control fluid"
+						type="text"
+						name="campground[title]"
+						id="title"
+						value="<%= campground.title %>"
+					/>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="location"> Location </label>
+					<input
+						class="form-control"
+						type="text"
+						name="campground[location]"
+						id="location"
+						value="<%= campground.location %>"
+					/>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="price"> Price </label>
+					<div class="input-group">
+						<span class="input-group-text">$</span>
+						<input
+							type="text"
+							class="form-control"
+							name="campground[price]"
+							id="price"
+							placeholder="0.00"
+							value="<%= campground.price %>"
+						/>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="description"> Description </label>
+					<textarea
+						class="form-control text-start"
+						name="campground[description]"
+						id="description"
+						cols="20"
+						rows="2"
+					>
+<%= campground.description %></textarea
+					>
+				</div>
+				<div class="mb-3">
+					<label for="formFileMultiple" class="form-label">Image/s</label>
+					<input
+						class="form-control"
+						type="file"
+						id="formFileMultiple"
+						name="images"
+						multiple
+					/>
+				</div>
+				<div class="container">
+					<div class="row mb-3 border-bottom border-secondary-subtle pb-4">
+						<% campground.images.forEach((img, i)=>{ %>
+						<div
+							class="col-6 col-md-4 border border-secondary-subtle text-center"
+						>
+							<img class="img-thumbnail" src="<%= img.thumbnail %>" alt="img" />
+							<div
+								class="form-check-block pt-2 d-flex justify-content-center align-items-center"
+							>
+								<input
+									type="checkbox"
+									id="image-<%= i %>"
+									name="deleteImages[]"
+									value="<%= img.filename %>"
+								/>
+								<label for="image-<%= i %>" class="pb-1 ps-1">
+									<i class="bi bi-trash text-danger"></i>
+								</label>
+							</div>
+						</div>
+
+						<% }) %>
+					</div>
+					<div class="mb-3 d-flex justify-content-between pt-4">
+						<a
+							href="/campgrounds/<%= campground._id %>"
+							class="text-decoration-none fs-5"
+							><i class="bi bi-arrow-left"></i> Back</a
+						>
+						<button class="btn btn-success">Update</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

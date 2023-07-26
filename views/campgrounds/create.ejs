@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %>
+<!-- <link rel="stylesheet" href="/css/app.css" /> -->
+<!-- <link rel="stylesheet" href="../../public/css/nav.css" /> -->
+
+<div class="p-3">
+	<div class="row">
+		<div class="col-12 col-md-5 offset-md-3 p-4 p-md-5 rounded-2 shadow-lg">
+			<h1 class="text-center fs-3 pb-4">New Campground</h1>
+			<form
+				action="/campgrounds"
+				method="post"
+				class="validated-form"
+				novalidate
+				enctype="multipart/form-data"
+			>
+				<div class="mb-3">
+					<label class="form-label" for="title">Title</label>
+					<input
+						class="form-control fluid"
+						type="text"
+						name="title"
+						id="title"
+						placeholder=""
+						required
+					/>
+					<!-- <div class="valid-feedback">Looks good!</div> -->
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="location"
+						>Location
+						<span class="text-secondary fw-light fst-italic"
+							>( Include Municipality and Province )</span
+						></label
+					>
+					<input
+						class="form-control"
+						type="text"
+						name="location"
+						id="location"
+						required
+					/>
+					<!-- <div class="valid-feedback">Looks good!</div> -->
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="price"> Price </label>
+					<div class="input-group">
+						<span class="input-group-text">$</span>
+						<input
+							type="number"
+							class="form-control"
+							name="price"
+							id="price"
+							placeholder="0.00"
+							required
+						/>
+						<!-- <div class="valid-feedback">Looks good!</div> -->
+					</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" for="description"> Description </label>
+					<textarea
+						class="form-control"
+						name="description"
+						id="description"
+						cols="20"
+						rows="2"
+						required
+					></textarea>
+					<!-- <div class="valid-feedback">Looks good!</div> -->
+				</div>
+				<div class="mb-4">
+					<label for="formFileMultiple" class="form-label">Image/s</label>
+					<input
+						class="form-control"
+						type="file"
+						id="formFileMultiple"
+						name="images"
+						multiple
+					/>
+				</div>
+				<div class="mb-3 d-flex justify-content-between">
+					<a href="/campgrounds" class="text-decoration-none fs-5"
+						><i class="bi bi-arrow-left"></i> Back</a
+					><button class="btn btn-success">Add</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

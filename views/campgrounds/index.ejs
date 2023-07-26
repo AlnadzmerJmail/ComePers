@@ -1,0 +1,95 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- for map to be rendered -->
+<div id="cluster-map" class="rounded-3"></div>
+
+<div class="compground-title-addnew-wrapper d-flex align-items-center">
+	<h1 class="campground-title">Campgrounds</h1>
+	<a
+		class="campground-add-btn btn btn-link text-decoration-none text-end text-center"
+		href="/campgrounds/new"
+	>
+		<!-- <span class="d-inline-block pe-2">Add new campground</span> -->
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="25"
+			height="25"
+			fill="currentColor"
+			class="bi bi-patch-plus"
+			viewBox="0 0 16 16"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"
+			/>
+			<path
+				d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"
+			/>
+		</svg>
+	</a>
+</div>
+
+<div class="container campgrounds-container p-0">
+	<% for(let campground of campgrounds){ %>
+	<div class="card mb-3">
+		<div class="row">
+			<div class="col-md-4">
+				<img
+					class="img-fluid"
+					src='<%= campground.images[0]?.url || "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"  %>'
+					alt=""
+				/>
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title"><%= campground.title %></h5>
+					<p class="card-text"><%= campground.description %></p>
+
+					<p class="card-text">
+						<small class="text-muted"><%= campground.location %></small>
+					</p>
+					<a class="btn btn-primary" href="/campgrounds/<%= campground.id%>"
+						>View <%= campground.title %></a
+					>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% } %>
+</div>
+
+<div class="p-5 text-center">
+	<% if(nextPage){ %>
+	<button class="btn btn-primary px-3" id="more-btn">
+		See More <i class="bi bi-arrow-down-short"></i>
+	</button>
+	<%} %>
+</div>
+
+<script>
+	const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+
+	const campgroundsCopy = <%- JSON.stringify(campgrounds) %>;
+
+	let campgrounds = { features: JSON.stringify(campgroundsCopy,replacer) };
+
+	function replacer(key, value) {
+		if (typeof value === 'string') {
+			// Escape single and double quotes with backslashes
+			return value.replace(/['"]/g, '\\$&');
+		} else if (typeof value === 'object') {
+			// Recursively call the replacer for nested objects
+			for (const nestedKey in value) {
+				value[nestedKey] = replacer(nestedKey, value[nestedKey]);
+			}
+		}
+
+		return value;
+	}
+
+	let nextPage = '<%-nextPage%>';
+</script>
+
+<script src="/js/clusterMap.js"></script>
+
+<script src="/js/paginate.js"></script>
