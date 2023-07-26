@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
 
+const PORT = process.env.PORT || 8080;
+
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -126,9 +128,9 @@ async function server() {
 	try {
 		await database;
 		console.log('Connection to database is successful!');
-		app.listen(8080, () =>
+		app.listen(PORT, () =>
 			console.log(
-				`App is listening on port 8080 and it is running on ${
+				`App is listening on port ${PORT} and it is running on ${
 					process.env.NODE_ENV || 'Development'
 				}`
 			)
