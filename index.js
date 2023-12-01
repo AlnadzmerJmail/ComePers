@@ -75,7 +75,7 @@ app.use(passport.session());
 
 // telling passport to use LocalStrategy and the authentication method is located in User model called authenticate -
 // which created by passport local mongoose
-passport.use(new LocalStrategy(User.authenticate())); // automatically added. we don't wrote this
+passport.use(new LocalStrategy(User.authenticate())); // automatically added. we didn't wrote this
 
 // to use with session
 passport.serializeUser(User.serializeUser()); // store user
@@ -88,7 +88,6 @@ app.set('views', path.join(__dirname, '/views'));
 
 // request passes here before it reaches the final route
 app.use((req, res, next) => {
-	console.log('USER--->>', req.user);
 	// thsese variables would be accessible in any views
 	res.locals.loggedInUser = req.user; // req.user ia automatically added to req by passport when login is successful
 	res.locals.success = req.flash('success');
@@ -114,20 +113,19 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
 	const { statusCode = 500 } = err;
 
+	console.log('TTHE ERROR-->>', JSON.stringify(err, null, 2));
+
 	if (!err.message) {
 		err.message = 'Something went wrong!';
 	}
-	// we can do it here but the challenge is where to redirect
-	// req.flash('error', err.message);
-	// res.redirect('/register');
 
 	res.status(statusCode).render('error', { err });
 });
 
 async function server() {
 	try {
-		await database;
-		console.log('Connection to database is successful!');
+		await database.connect();
+
 		app.listen(PORT, () =>
 			console.log(
 				`App is listening on port ${PORT} and it is running on ${

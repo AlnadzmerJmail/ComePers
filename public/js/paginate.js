@@ -80,4 +80,4 @@ function fetchMoreCampgrounds() {
 }
 
 const moreBtn = document.getElementById('more-btn');
-moreBtn.addEventListener('click', fetchMoreCampgrounds);
+moreBtn?.addEventListener('click', fetchMoreCampgrounds);

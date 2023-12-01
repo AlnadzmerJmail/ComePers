@@ -27,10 +27,6 @@ const {
 router
 	.route('/')
 	.get(asyncWrapper(index))
-	// .post(upload.single('image'), (req, res) => {
-	// 	console.log('BODY: ', req.body, 'FILE:', req.file);
-	// 	res.send('Uploaded!');
-	// });
 	.post(
 		isLoggedIn,
 		upload.array('images'),
@@ -52,9 +48,5 @@ router
 	.delete(isLoggedIn, isAuthor, asyncWrapper(deleteCampground));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, asyncWrapper(showEditForm));
-
-// router.get('/:id', asyncWrapper(showCampground));
-// router.put('/:id', isLoggedIn, isAuthor, asyncWrapper(updateCampground));
-// router.delete('/:id', isLoggedIn, isAuthor, asyncWrapper(deleteCampground));
 
 module.exports = router;

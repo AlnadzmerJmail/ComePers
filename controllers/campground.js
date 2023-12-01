@@ -15,8 +15,6 @@ const Review = require('../models/review');
 
 // controller functions
 const index = async (req, res) => {
-	console.log('params....', req.query);
-
 	let { page = 1 } = req.query;
 	page = Number(page);
 
@@ -53,8 +51,6 @@ const showCampground = async (req, res) => {
 		})
 		.populate('author');
 
-	console.log('CAMPGROUND-->>', campground);
-
 	if (!campground) {
 		req.flash('error', "Couldn't found Campground!");
 		return res.redirect('/campgrounds');
@@ -71,17 +67,12 @@ const createCampground = async (req, res) => {
 		req.body.location = req.body.location + ' Philippines';
 	}
 
-	console.log('LOCATION-->>', req.body.location);
 	const geoData = await geocoder
 		.forwardGeocode({
 			query: req.body.location,
 			limit: 1,
 		})
 		.send();
-
-	// return console.log('GEODATA--->>', geoData.body.features[0].geometry);
-
-	// res.send('HI!');
 
 	const campground = new Campground(req.body);
 
@@ -97,8 +88,6 @@ const createCampground = async (req, res) => {
 
 	const newCampground = await campground.save();
 
-	console.log('new campground--->', newCampground);
-
 	req.flash('success', 'Successfully created Campground!');
 
 	res.redirect('/campgrounds');
@@ -112,7 +101,7 @@ const showEditForm = async (req, res) => {
 
 const updateCampground = async (req, res) => {
 	const { id } = req.params;
-	console.log('BODY---->>>', req.body);
+
 	const updatedCampground = await Campground.findByIdAndUpdate(
 		id,
 		{ ...req.body.campground },

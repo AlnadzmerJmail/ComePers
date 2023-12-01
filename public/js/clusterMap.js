@@ -1,7 +1,8 @@
 mapboxgl.accessToken = mapToken;
 
+// console.log('campgrounds-->>', campgrounds);
+
 campgrounds = { features: JSON.parse(campgrounds.features) };
-console.log('campgrounds...', campgrounds);
 
 const map = new mapboxgl.Map({
 	container: 'cluster-map',
