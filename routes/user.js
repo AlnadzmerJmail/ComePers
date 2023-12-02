@@ -30,8 +30,6 @@ passport.use(
 			scope: ['profile', 'email'],
 		},
 		async (accessToken, refreshToken, profile, done) => {
-			// return console.log('user profile is: ', profile);
-
 			const source = 'Google';
 			const password = profile.id;
 
@@ -48,21 +46,15 @@ passport.use(
 				source,
 			});
 
-			console.log('REGISTERED-USER-->>', foundUser);
-
 			if (foundUser) return done(null, foundUser);
 
 			User.register(user, password)
 				.then((newUser) => {
 					if (newUser) {
-						console.log('NEWLY REGISTERED USER!!!', user);
 						done(null, newUser);
-					} else {
-						console.log('NO USER FOUND!!!');
 					}
 				})
 				.catch((err) => {
-					console.log('errror................', err);
 					done(err);
 				});
 		}

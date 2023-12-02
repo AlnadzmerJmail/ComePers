@@ -113,8 +113,6 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
 	const { statusCode = 500 } = err;
 
-	console.log('TTHE ERROR-->>', JSON.stringify(err, null, 2));
-
 	if (!err.message) {
 		err.message = 'Something went wrong!';
 	}

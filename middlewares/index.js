@@ -9,7 +9,6 @@ const { campgroundJoiSchema, reviewJoiSchema } = require('../joi-schemas');
 const Campground = require('../models/campground');
 
 const validateCampground = (req, res, next) => {
-	console.log('VALIDATE-CAMPGROUND--Body @ middleware...', req.body, req.user);
 	const { error } = campgroundJoiSchema.validate({ campground: req.body });
 
 	if (error) {
@@ -36,8 +35,6 @@ const validateReview = (req, res, next) => {
 
 const isLoggedIn = (req, res, next) => {
 	// isAuthenticated is coming from passport automatically
-
-	console.log('REQ....', req);
 
 	if (!req.isAuthenticated()) {
 		req.flash('error', 'You must be signed in first!');

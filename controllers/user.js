@@ -13,8 +13,6 @@ const register = async (req, res) => {
 
 	const user = new User({ username, email });
 
-	// return console.log(user);
-
 	// user.register is from passport, it handles the hashing of password before saving to db
 	// but instead of password property, it creates salt and hash
 	const newUser = await User.register(user, password);
@@ -41,7 +39,6 @@ const login = (req, res) => {
 
 // login with Google
 const loginWithGoogle = () => {
-	console.log('LOGIN WITH GOOGLE.........', process.env['GOOGLE_CLIENT_ID']);
 	passport.use(
 		new GoogleStrategy(
 			{
@@ -51,7 +48,6 @@ const loginWithGoogle = () => {
 				scope: ['profile'],
 			},
 			function verify(issuer, profile, cb) {
-				console.log('THE ISSUER-->>', issuer, 'PROFILE-->>', profile);
 				db.get(
 					'SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?',
 					[issuer, profile.id],

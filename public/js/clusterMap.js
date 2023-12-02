@@ -1,7 +1,5 @@
 mapboxgl.accessToken = mapToken;
 
-// console.log('campgrounds-->>', campgrounds);
-
 campgrounds = { features: JSON.parse(campgrounds.features) };
 
 const map = new mapboxgl.Map({
@@ -118,11 +116,9 @@ map.on('load', () => {
 	// the location of the feature, with
 	// description HTML from its properties.
 	map.on('click', 'unclustered-point', (e) => {
-		console.log(e.features[0]);
 		const coordinates = e.features[0].geometry.coordinates.slice();
 		const campgroundTitle = e.features[0].properties.title;
 		const campgroundId = e.features[0].properties.id;
-		// console.log(popupTitle, campgroundId);
 
 		// const mag = e.features[0].properties.mag;
 		// const tsunami = e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
